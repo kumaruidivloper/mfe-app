@@ -1,4 +1,4 @@
-# UserManagementMfe
+# HostApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
 
@@ -14,14 +14,46 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Angular App Creation: 
+npx -p @angular/cli@17 ng new host-app --no-standalone --routing --style=scss
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Ng Serve:
+ng serve --host 0.0.0.0 --port 4200
 
-## Running end-to-end tests
+## install (Angular element):
+npm install @angular/elements@17 @webcomponents/custom-elements
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+@angular/elements@17 → the version aligned with Angular 17.
 
-## Further help
+@webcomponents/custom-elements → polyfill for browsers that don’t natively support Custom Elements (safe to add).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Zone update:
+npm uninstall zone.js
+npm install zone.js@0.13
+
+## Polyfill config:
+build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputHashing": "none",
+            "outputPath": "dist/user-management-mfe",
+            "namedChunks": false,
+            "vendorChunk": false,
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+
+## ng Build:
+ng build --configuration production --output-hashing=none
+
+## MFE Bundle concade:
+cat runtime.js polyfills.js main.js > ./../../elements/user-management-mfe.js
+
+## Prod Deployment:
+Step1: npm run deploy:gh 
+
+Step2: update in index.html
+
+Step3: npx angular-cli-ghpages --dir=dist/host-app/browser

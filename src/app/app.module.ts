@@ -1,18 +1,29 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { createCustomElement } from '@angular/elements';
+import { CommonModule } from '@angular/common';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    CommonModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []  // 👈 empty bootstrap
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {}
+
+  ngDoBootstrap() {
+    // Create custom element
+    const userManagementElement = createCustomElement(UserManagementComponent, { injector: this.injector });
+    customElements.define('user-management-mfe', userManagementElement);
+  }
+}

@@ -1,0 +1,42 @@
+<div class="user-management" [attr.data-theme]="currentTheme">
+  <div class="header">
+    <h4>User Management</h4>
+    <div class="user-info" *ngIf="userInfo.name">
+      Welcome, {{userInfo.name}} ({{userInfo.role}})
+    </div>
+  </div>
+
+  <div class="actions">
+    <!-- <button (click)="requestUserData()" class="btn btn-primary" [disabled]="loading">
+      {{loading ? 'Loading...' : 'Refresh Users'}}
+    </button> -->
+    <button (click)="addUser()" class="btn btn-success">
+      Add User
+    </button>
+  </div>
+
+  <div class="user-list" *ngIf="users.length > 0">
+    <div class="user-item" *ngFor="let user of users">
+      <div class="user-details">
+        <strong>{{user.name}}</strong>
+        <span class="department">{{user.department}}</span>
+      </div>
+      <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <div class="no-users" *ngIf="users.length === 0 && !loading">
+    <span>No users available</span>
+  </div>
+
+  @if(MessageFromHost !== null) {
+    <div> {{MessageFromHost.message}}</div>
+    <div> {{MessageFromHost.timestamp | date:'dd-MM-yyyy HH:mm:ss'}}</div>
+  }
+
+  <!-- <div class="loading" *ngIf="loading">
+    Loading users...
+  </div> -->
+</div>
