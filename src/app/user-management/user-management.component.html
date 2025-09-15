@@ -22,13 +22,13 @@
         <span class="department">{{user.department}}</span>
       </div>
       <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">
-        Delete
+        Delete User
       </button>
     </div>
   </div>
 
   <div class="no-users" *ngIf="users.length === 0 && !loading">
-    <span>No users available</span>
+    <span>No user available</span>
   </div>
 
   @if(MessageFromHost !== null) {
